@@ -4,6 +4,7 @@ var ejs = require('ejs')
 const path = require('path')
 var mysql = require('mysql2');
 const session = require('express-session');
+const expressSanitizer = require('express-sanitizer');
 
 // Create the express application object
 const app = express()
@@ -25,6 +26,9 @@ app.use(session({
         maxAge: 600000 // Session expires after 10 minutes (600000 ms)
     }
 }));
+
+// Create an input sanitizer
+app.use(expressSanitizer()); 
 
 // Set up public folder (for css and static js)
 app.use(express.static(path.join(__dirname, 'public')))
